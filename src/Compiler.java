@@ -14,24 +14,7 @@ import java.io.InputStream;
 
 public class Compiler {
   public static void main(String[] args) throws Exception {
-    InputStream input = System.in;
-
-    MeteorLexer lexer = new MeteorLexer(CharStreams.fromStream(input));
-    lexer.removeErrorListeners();
-    lexer.addErrorListener(new AntlrErrorListener());
-
-    MeteorParser parser = new MeteorParser(new CommonTokenStream(lexer));
-    parser.removeErrorListeners();
-    parser.addErrorListener(new AntlrErrorListener());
-    MeteorParser.ProgContext parserRoot = parser.prog();
-
-    ASTBuilder astBuilder = new ASTBuilder();
-    ProgNode builderRoot = (ProgNode) astBuilder.visitProg(parserRoot);
-
-    SymbolCollector symbolCollector = new SymbolCollector();
-    symbolCollector.visit(builderRoot);
-
-    SemanticChecker semanticChecker = new SemanticChecker();
-    semanticChecker.visit(builderRoot);
+    MainKt.main(args);
   }
 }
+
