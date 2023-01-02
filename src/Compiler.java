@@ -14,7 +14,6 @@ import java.io.*;
 public class Compiler {
 	static String builtin_s_as_literal = """
 				.text
-				.attribute arch, "rv32i2p0_m2p0_a2p0_f2p0_d2p0_c2p0"
 				.file	"builtin.c"
 				.globl	print                   # -- Begin function print
 				.p2align	2
@@ -329,11 +328,12 @@ public class Compiler {
 
 				.type	.L.str.3,@object        # @.str.3
 			.L.str.3:
-				.asciz	"%d\n"
+				.asciz	"%d\\n"
 				.size	.L.str.3, 4
 
-			.section	".note.GNU-stack","",@progbits
-					""";
+				.ident	"clang version 10.0.0-4ubuntu1 "
+				.section	".note.GNU-stack","",@progbits
+							""";
 
 	static void builtin() throws Exception {
 		FileOutputStream out = new FileOutputStream("builtin.s");
